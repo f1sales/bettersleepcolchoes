@@ -13,7 +13,9 @@ module Bettersleepcolchoes
       source_name = lead.source.name
       description = lead.description
 
-      source_name = "#{source_name} - #{description}" if source_name['Simmons']
+      return "#{source_name} - #{description.delete_prefix('Better Sleep ')}" if source_name['Simmons']
+
+      return "#{source_name} - #{description.delete_prefix('Better Sleep ')}" if source_name['Lead de empresas']
 
       source_name
     end

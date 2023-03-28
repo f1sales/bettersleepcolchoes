@@ -33,7 +33,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
       context 'when lead is to Better Sleep Aldeota' do
         it 'returns Simmons - Widgrid - Better Sleep Aldeota' do
-          expect(switch_source).to eq('Simmons - Widgrid - Better Sleep Aldeota')
+          expect(switch_source).to eq('Simmons - Widgrid - Aldeota')
         end
       end
     end
@@ -46,7 +46,20 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
       context 'when lead is to Better Sleep Aldeota' do
         it 'returns Simmons - Facebook - Better Sleep Aldeota' do
-          expect(switch_source).to eq('Simmons - Facebook - Better Sleep Antonio Sales')
+          expect(switch_source).to eq('Simmons - Facebook - Antonio Sales')
+        end
+      end
+    end
+
+    context 'when leads come form Lead de empresas' do
+      before do
+        source.name = 'Lead de empresas'
+        lead.description = 'Better Sleep Antonio Sales'
+      end
+
+      context 'when lead is to Better Sleep Aldeota' do
+        it 'returns Lead de empresas - Better Sleep Aldeota' do
+          expect(switch_source).to eq('Lead de empresas - Antonio Sales')
         end
       end
     end

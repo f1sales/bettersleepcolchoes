@@ -63,5 +63,40 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         end
       end
     end
+
+    context 'when leads come from Facebook' do
+      context 'when is to Aldeota' do
+        before do
+          source.name = 'Facebook - Better Sleep Colchões'
+          lead.message = 'escolha_seu_local_de_atendimento: av._padre_antônio_tomás,_2749'
+        end
+
+        it 'returns Facebook - Better Sleep Colchões - Aldeota' do
+          expect(switch_source).to eq('Facebook - Better Sleep Colchões - Aldeota')
+        end
+      end
+
+      context 'when is to Antonio Sales' do
+        before do
+          source.name = 'Facebook - Better Sleep Colchões'
+          lead.message = 'escolha_seu_local_de_atendimento: av._antônio_sales,_2895'
+        end
+
+        it 'returns Facebook - Better Sleep Colchões - Sales' do
+          expect(switch_source).to eq('Facebook - Better Sleep Colchões - Sales')
+        end
+      end
+
+      context 'when is to Cambeba' do
+        before do
+          source.name = 'Facebook - Better Sleep Colchões'
+          lead.message = 'escolha_seu_local_de_atendimento: av._washington_soares,_4527'
+        end
+
+        it 'returns Facebook - Better Sleep Colchões - Cambeba' do
+          expect(switch_source).to eq('Facebook - Better Sleep Colchões - Cambeba')
+        end
+      end
+    end
   end
 end

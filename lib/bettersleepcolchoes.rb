@@ -80,7 +80,7 @@ module Bettersleepcolchoes
       def switch_source(lead)
         @lead = lead
 
-        return "#{source_name} - #{description.delete_prefix('Better Sleep ')}" if simmons? || lead_de_empresas?
+        return simmons_leads if simmons? || lead_de_empresas?
 
         source_name['Widgrid'] ? "#{source_name}#{add_store} - Exclusivo" : "#{source_name}#{add_store}"
       end
@@ -123,6 +123,11 @@ module Bettersleepcolchoes
         return ' - Aldeota' if aldeota?
         return ' - Sales' if sales?
         return ' - Cambeba' if cambeba?
+      end
+
+      def simmons_leads
+        source = "#{source_name} - #{description.delete_prefix('Better Sleep ')}"
+        source_name['Widgrid'] ? "#{source} - Exclusivo" : source
       end
     end
   end

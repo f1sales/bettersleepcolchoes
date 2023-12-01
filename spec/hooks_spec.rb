@@ -34,7 +34,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
       context 'when lead is to Better Sleep Aldeota' do
         it 'returns Simmons - Widgrid - Better Sleep Aldeota' do
-          expect(switch_source).to eq('Simmons - Widgrid - Aldeota')
+          expect(switch_source).to eq('Simmons - Widgrid - Aldeota - Exclusivo')
         end
       end
     end

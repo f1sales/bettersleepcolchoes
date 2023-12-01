@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'byebug'
 
 RSpec.describe F1SalesCustom::Hooks::Lead do
   context 'when come from Simmons' do

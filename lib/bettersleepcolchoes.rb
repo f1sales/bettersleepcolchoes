@@ -76,22 +76,59 @@ module Bettersleepcolchoes
   end
 
   class F1SalesCustom::Hooks::Lead
-    def self.switch_source(lead)
-      source_name = lead.source.name
-      description = lead.description || ''
-      lead_message = lead.message || ''
+    class << self
+      def switch_source(lead)
+        @lead = lead
 
-      return "#{source_name} - #{description.delete_prefix('Better Sleep ')}" if source_name['Simmons']
+        return simmons_leads if simmons? || lead_de_empresas?
 
-      return "#{source_name} - #{description.delete_prefix('Better Sleep ')}" if source_name['Lead de empresas']
+        source_name['Widgrid'] ? "#{source_name}#{add_store} - Exclusivo" : "#{source_name}#{add_store}"
+      end
 
-      return "#{source_name} - Aldeota" if lead_message['padre_antônio_tomás']
+      private
 
-      return "#{source_name} - Sales" if lead_message['antônio_sales']
+      def source_name
+        @lead.source.name
+      end
 
-      return "#{source_name} - Cambeba" if lead_message['washington_soares']
+      def lead_message
+        @lead.message || ''
+      end
 
-      source_name
+      def description
+        @lead.description || ''
+      end
+
+      def simmons?
+        source_name['Simmons']
+      end
+
+      def lead_de_empresas?
+        source_name['Lead de empresas']
+      end
+
+      def aldeota?
+        lead_message['padre_antônio_tomás']
+      end
+
+      def sales?
+        lead_message['antônio_sales']
+      end
+
+      def cambeba?
+        lead_message['washington_soares']
+      end
+
+      def add_store
+        return ' - Aldeota' if aldeota?
+        return ' - Sales' if sales?
+        return ' - Cambeba' if cambeba?
+      end
+
+      def simmons_leads
+        source = "#{source_name} - #{description.delete_prefix('Better Sleep ')}"
+        source_name['Widgrid'] ? "#{source} - Exclusivo" : source
+      end
     end
   end
 end
